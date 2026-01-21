@@ -2,11 +2,10 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\Textarea;
-use Illuminate\Support\Facades\Storage;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class ProductForm
 {
@@ -47,7 +46,7 @@ class ProductForm
                     ->moveFiles()
                     ->reorderable()
                     ->openable()
-                    ->downloadable()
+                    ->downloadable(),
             ]);
     }
 }
