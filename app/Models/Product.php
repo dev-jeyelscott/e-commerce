@@ -88,4 +88,9 @@ class Product extends Model
     {
         return 'id';
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_product');
+    }
 }

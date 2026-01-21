@@ -29,10 +29,14 @@ class ProductsTable
                     ->sortable(),
                 TextColumn::make('brand')
                     ->searchable(),
-                TextColumn::make('category')
+                TextColumn::make('categories.name')
+                    ->listWithLineBreaks()
+                    ->badge()
+                    ->limitList(3)
+                    ->expandableLimitedList()
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('PHP')
                     ->sortable(),
                 TextColumn::make('quantity')
                     ->numeric()
@@ -41,21 +45,21 @@ class ProductsTable
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -64,7 +68,6 @@ class ProductsTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                ViewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])
