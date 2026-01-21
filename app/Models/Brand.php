@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * @property string $id
+ * @property string $name
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ *
+ * @method static \Database\Factories\BrandFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand withoutTrashed()
+ *
+ * @mixin \Eloquent
+ */
+class Brand extends Model
+{
+    /** @use HasFactory<\Database\Factories\BrandFactory> */
+    use HasFactory, HasUlids, SoftDeletes;
+
+    /**
+     * The "type" of the primary key ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+}

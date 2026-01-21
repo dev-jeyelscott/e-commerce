@@ -26,7 +26,8 @@ class ProductForm
                                 Textarea::make('description')
                                     ->rows(5)
                                     ->columnSpanFull(),
-                                TextInput::make('brand'),
+                                Select::make('brand')
+                                    ->relationship('brand', 'name'),
                                 Select::make('categories')
                                     ->multiple()
                                     ->relationship('categories', 'name'),

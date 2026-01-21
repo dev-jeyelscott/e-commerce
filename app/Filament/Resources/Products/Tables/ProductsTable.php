@@ -8,6 +8,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
@@ -21,12 +22,14 @@ class ProductsTable
             ->columns([
                 ImageColumn::make('images')
                     ->label('Image')
+                    ->imageSize(80)
+                    ->alignCenter()
                     ->limit(1)
-                    ->placeholder('-'),
+                    ->placeholder('No Image'),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('brand')
+                TextColumn::make('brand.name')
                     ->searchable(),
                 TextColumn::make('categories.name')
                     ->listWithLineBreaks()
@@ -67,6 +70,7 @@ class ProductsTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

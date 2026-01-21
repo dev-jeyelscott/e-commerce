@@ -23,8 +23,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Customer::factory(10)->create();
-        Product::factory(20)->create();
-        Category::factory(10)->create();
+        Customer::factory()
+            ->count(10)
+            ->create();
+
+        Product::factory()
+            ->count(10)
+            ->has(Category::factory()->count(rand(1, 3)))
+            ->create();
     }
 }

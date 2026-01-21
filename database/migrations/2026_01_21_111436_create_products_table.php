@@ -15,8 +15,7 @@ return new class extends Migration
             $table->ulid('id')->primary()->unique();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->string('brand')->nullable();
-            $table->string('category')->nullable();
+            $table->foreignUlid('brand_id')->nullable()->index();
             $table->decimal('price');
             $table->integer('quantity')->default(0);
             $table->text('images')->nullable();
