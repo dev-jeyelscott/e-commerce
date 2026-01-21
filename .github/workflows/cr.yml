@@ -11,8 +11,13 @@ on:
 jobs:
   code-review:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: anc95/ChatGPT-CodeReview@main
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: AI Code Review
+        uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -21,14 +26,24 @@ jobs:
 
           LANGUAGE: English
           PROMPT: |
-            Act as a senior software engineer reviewing my code. Perform a production-grade code review.
-            Assume this code will run at scale.
-            Focus on correctness, security, scalability, testability, and maintainability.
+            Act as a senior Laravel engineer.
+            Perform a production-grade review.
+            Focus on security, validation, authorization, N+1 queries,
+            migrations safety, queue usage, and test coverage.
             Flag anything that would block a merge.
 
-          temperature: 0.3
-          top_p: 1
-          max_tokens: 4000
+          TEMPERATURE: 0.3
+          TOP_P: 1
+          MAX_TOKENS: 4000
 
-          IGNORE_PATTERNS: /node_modules/**/*,*.md
-          INCLUDE_PATTERNS: "*.js,*.ts"
+          IGNORE_PATTERNS: |
+            /node_modules/**
+            /vendor/**
+            *.md
+
+          INCLUDE_PATTERNS: |
+            *.js
+            *.ts
+            *.php
+            *.blade.php
+            *.json
