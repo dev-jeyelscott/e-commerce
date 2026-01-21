@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\User;
@@ -22,7 +23,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Customer::factory(10)->create();
-        Product::factory(20)->create();
+        Customer::factory()
+            ->count(10)
+            ->create();
+
+        Product::factory()
+            ->count(10)
+            ->has(Category::factory()->count(rand(1, 3)))
+            ->create();
     }
 }

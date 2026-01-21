@@ -22,17 +22,23 @@ class ProductsTable
             ->columns([
                 ImageColumn::make('images')
                     ->label('Image')
+                    ->imageSize(80)
+                    ->alignCenter()
                     ->limit(1)
-                    ->placeholder('-'),
+                    ->placeholder('No Image'),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('brand')
+                TextColumn::make('brand.name')
                     ->searchable(),
-                TextColumn::make('category')
+                TextColumn::make('categories.name')
+                    ->listWithLineBreaks()
+                    ->badge()
+                    ->limitList(3)
+                    ->expandableLimitedList()
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('PHP')
                     ->sortable(),
                 TextColumn::make('quantity')
                     ->numeric()
