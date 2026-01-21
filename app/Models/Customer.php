@@ -57,6 +57,20 @@ class Customer extends Model
 {
     use HasFactory, HasUlids, SoftDeletes;
 
+    /**
+     * The "type" of the primary key ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -74,6 +88,12 @@ class Customer extends Model
         'password',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     protected function casts(): array
     {
         return [
@@ -81,11 +101,10 @@ class Customer extends Model
         ];
     }
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
 
     public function getNameAttribute(): string
     {

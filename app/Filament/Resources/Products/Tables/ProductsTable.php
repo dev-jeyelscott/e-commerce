@@ -1,65 +1,65 @@
 <?php
 
-namespace App\Filament\Resources\Customers\Tables;
+namespace App\Filament\Resources\Products\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
-class CustomersTable
+class ProductsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
+                ImageColumn::make('images')
+                    ->label('Image')
+                    ->limit(1)
+                    ->placeholder('-'),
                 TextColumn::make('name')
-                    ->label('Full Name')
-                    ->sortable()
-                    ->searchable(query: function (Builder $query, string $search): Builder {
-                        return $query
-                            ->where('first_name', 'ilike', "%{$search}%")
-                            ->orWhere('last_name', 'ilike', "%{$search}%");
-                    }),
-                TextColumn::make('email')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('phone')
+                TextColumn::make('brand')
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->label('Verified at')
-                    ->placeholder('Not Verified')
+                TextColumn::make('category')
+                    ->searchable(),
+                TextColumn::make('price')
+                    ->money()
+                    ->sortable(),
+                TextColumn::make('quantity')
+                    ->numeric()
                     ->sortable(),
                 TextColumn::make('deleted_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 TrashedFilter::make(),
             ])
@@ -67,8 +67,6 @@ class CustomersTable
                 ViewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
-                ForceDeleteAction::make(),
-                RestoreAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
