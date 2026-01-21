@@ -8,7 +8,6 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
@@ -45,21 +44,21 @@ class ProductsTable
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

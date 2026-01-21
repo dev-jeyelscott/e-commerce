@@ -21,8 +21,10 @@ jobs:
 
           LANGUAGE: English
           PROMPT: |
-            Please review the following code changes.
-            Focus on bugs, security issues, performance, and best practices.
+            Act as a senior software engineer reviewing my code. Perform a production-grade code review.
+            Assume this code will run at scale.
+            Focus on correctness, security, scalability, testability, and maintainability.
+            Flag anything that would block a merge.
 
           temperature: 0.3
           top_p: 1

@@ -38,7 +38,7 @@ class ProductForm
                                     ->required()
                                     ->numeric()
                                     ->default(0),
-                            ])
+                            ]),
                     ]),
 
                 Grid::make(1)
@@ -66,8 +66,8 @@ class ProductForm
                                     ->openable()
                                     ->downloadable()
                                     ->columnSpanFull(),
-                            ])
-                    ])
+                            ]),
+                    ]),
             ]);
     }
 }
