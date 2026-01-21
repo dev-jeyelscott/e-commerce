@@ -50,6 +50,10 @@ jobs:
 
       - name: Tests
         run: ./vendor/bin/pest
+        env:
+          APP_ENV: testing
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
 
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyze
