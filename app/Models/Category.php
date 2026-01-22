@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
+ * @property string $vendor_id
  * @property string $name
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereVendorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category withoutTrashed()
  *
@@ -51,6 +53,7 @@ class Category extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'vendor_id',
         'name',
     ];
 

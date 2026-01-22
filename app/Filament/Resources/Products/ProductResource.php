@@ -66,6 +66,10 @@ class ProductResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return (string) static::getModel()::count();
+        if (auth()->user()->hasRole('system admin')) {
+            return (string) static::getModel()::count();
+        }
+
+        return (string) static::getModel()::where('vendor_id', auth()->id())->count();
     }
 }

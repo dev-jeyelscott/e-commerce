@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->ulid('id')->primary()->unique();
+            $table->foreignUlid('vendor_id')->references('id')->on('users')->index();
             $table->string('name');
             $table->softDeletes();
             $table->timestamps();

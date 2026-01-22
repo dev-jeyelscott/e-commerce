@@ -11,12 +11,20 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CategoriesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                if (auth()->user()->hasRole('system admin')) {
+                    return $query;
+                }
+
+                return $query->where(['vendor_id' => auth()->id()]);
+            })
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
+ * @property string $vendor_id
  * @property string $name
  * @property string|null $description
  * @property string|null $brand_id
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Brand|null $brand
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
  * @property-read int|null $categories_count
+ * @property-read \App\Models\User $vendor
  *
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
@@ -37,6 +39,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereVendorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product withoutTrashed()
  *
@@ -62,6 +65,7 @@ class Product extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'vendor_id',
         'name',
         'description',
         'brand_id',
@@ -97,5 +101,10 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class);
     }
 }
