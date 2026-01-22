@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use App\Models\Customer;
 use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,16 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(RoleAndPermissionSeeder::class);
 
-        User::factory()->create([
+        $systemAdmin = User::factory()->create([
             'name' => 'System Administrator',
             'email' => 'system@admin.com',
         ]);
 
-        Customer::factory()->create([
-            'email' => 'test@example.com',
+        $systemAdmin->assignRole('system admin');
+
+        $vendor = User::factory()->create([
+            'email' => 'vendor@example.com',
         ]);
+
+        $vendor->assignRole('vendor');
 
         Product::factory()
             ->count(10)
