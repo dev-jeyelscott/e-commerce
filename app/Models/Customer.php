@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property string $id
@@ -50,7 +50,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @mixin \Eloquent
  */
-class Customer extends Authenticatable
+class Customer extends Model
 {
     use HasFactory, HasUlids, SoftDeletes;
 
