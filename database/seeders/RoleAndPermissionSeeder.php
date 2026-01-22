@@ -21,7 +21,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'manage brands']);
         Permission::create(['name' => 'view brands']);
         Permission::create(['name' => 'create brands']);
-        Permission::create(['name' => 'edit brands']);
+        Permission::create(['name' => 'update brands']);
         Permission::create(['name' => 'delete brands']);
         Permission::create(['name' => 'delete any brands']);
         Permission::create(['name' => 'restore brands']);
@@ -33,7 +33,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'manage categories']);
         Permission::create(['name' => 'view categories']);
         Permission::create(['name' => 'create categories']);
-        Permission::create(['name' => 'edit categories']);
+        Permission::create(['name' => 'update categories']);
         Permission::create(['name' => 'delete categories']);
         Permission::create(['name' => 'delete any categories']);
         Permission::create(['name' => 'restore categories']);
@@ -45,7 +45,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'manage products']);
         Permission::create(['name' => 'view products']);
         Permission::create(['name' => 'create products']);
-        Permission::create(['name' => 'edit products']);
+        Permission::create(['name' => 'update products']);
         Permission::create(['name' => 'delete products']);
         Permission::create(['name' => 'delete any products']);
         Permission::create(['name' => 'restore products']);
@@ -57,7 +57,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'manage roles']);
         Permission::create(['name' => 'view roles']);
         Permission::create(['name' => 'create roles']);
-        Permission::create(['name' => 'edit roles']);
+        Permission::create(['name' => 'update roles']);
         Permission::create(['name' => 'delete roles']);
         Permission::create(['name' => 'delete any roles']);
         Permission::create(['name' => 'restore roles']);
@@ -69,7 +69,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'manage permissions']);
         Permission::create(['name' => 'view permissions']);
         Permission::create(['name' => 'create permissions']);
-        Permission::create(['name' => 'edit permissions']);
+        Permission::create(['name' => 'update permissions']);
         Permission::create(['name' => 'delete permissions']);
         Permission::create(['name' => 'delete any permissions']);
         Permission::create(['name' => 'restore permissions']);
@@ -91,7 +91,7 @@ class RoleAndPermissionSeeder extends Seeder
             'manage brands',
             'view brands',
             'create brands',
-            'edit brands',
+            'update brands',
             'delete brands',
             'delete any brands',
             'restore brands',
@@ -102,7 +102,7 @@ class RoleAndPermissionSeeder extends Seeder
             'manage categories',
             'view categories',
             'create categories',
-            'edit categories',
+            'update categories',
             'delete categories',
             'delete any categories',
             'restore categories',
@@ -113,7 +113,7 @@ class RoleAndPermissionSeeder extends Seeder
             'manage products',
             'view products',
             'create products',
-            'edit products',
+            'update products',
             'delete products',
             'delete any products',
             'restore products',
