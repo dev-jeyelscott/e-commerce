@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,7 +45,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  *
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasUlids, Notifiable, TwoFactorAuthenticatable;
@@ -102,5 +104,9 @@ class User extends Authenticatable
     public function getRouteKeyName(): string
     {
         return 'id';
+    }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true; // or role-based logic
     }
 }

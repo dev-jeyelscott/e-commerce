@@ -11,18 +11,15 @@ class CustomerForm
     {
         return $schema
             ->components([
-                TextInput::make('first_name')
-                    ->label('First Name')
+                TextInput::make('name')
+                    ->label('Full name')
                     ->required()
                     ->autofocus(),
-                TextInput::make('last_name')
-                    ->label('Last Name')
-                    ->required(),
                 TextInput::make('email')
                     ->label('Email')
                     ->required()
                     ->disabled(
-                        fn (string $context): bool => $context === 'edit',
+                        fn(string $context): bool => $context === 'edit',
                     )
                     ->email(),
                 TextInput::make('phone')
@@ -34,14 +31,14 @@ class CustomerForm
                     ->confirmed()
                     ->password()
                     ->visible(
-                        fn (string $context): bool => $context === 'create',
+                        fn(string $context): bool => $context === 'create',
                     )
                     ->revealable(),
                 TextInput::make('password_confirmation')
                     ->label('Confirm Password')
                     ->required()
                     ->visible(
-                        fn (string $context): bool => $context === 'create',
+                        fn(string $context): bool => $context === 'create',
                     )
                     ->password()
                     ->revealable(),

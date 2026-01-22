@@ -25,11 +25,7 @@ class CustomersTable
                 TextColumn::make('name')
                     ->label('Full Name')
                     ->sortable()
-                    ->searchable(query: function (Builder $query, string $search): Builder {
-                        return $query
-                            ->where('first_name', 'ilike', "%{$search}%")
-                            ->orWhere('last_name', 'ilike', "%{$search}%");
-                    }),
+                    ->searchable(),
                 TextColumn::make('email')
                     ->sortable(),
                 TextColumn::make('phone')
@@ -42,21 +38,21 @@ class CustomersTable
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

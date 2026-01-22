@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -53,7 +53,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @mixin \Eloquent
  */
-class Customer extends Model
+class Customer extends Authenticatable
 {
     use HasFactory, HasUlids, SoftDeletes;
 
@@ -72,8 +72,7 @@ class Customer extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'password',
         'phone',
@@ -106,13 +105,8 @@ class Customer extends Model
         return 'id';
     }
 
-    public function getNameAttribute(): string
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
     public function getFullAddressAttribute(): string
     {
-        return $this->address.', '.$this->city.', '.$this->state.', '.$this->country.', '.$this->postal_code;
+        return $this->address . ', ' . $this->city . ', ' . $this->state . ', ' . $this->country . ', ' . $this->postal_code;
     }
 }
