@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Customer;
 use App\Models\Product;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,20 +16,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(RoleAndPermissionSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $systemAdmin = User::factory()->create([
+            'name' => 'System Administrator',
+            'email' => 'system@admin.com',
         ]);
 
-        Customer::factory()
-            ->count(10)
-            ->create();
+        $systemAdmin->assignRole('system admin');
 
-        Product::factory()
-            ->count(10)
-            ->has(Category::factory()->count(rand(1, 3)))
-            ->create();
+        $vendor2 = User::factory()
+            ->create([
+                'email' => 'vendor2@example.com',
+            ]);
+
+        $vendor2->assignRole('vendor');
+
+        $vendor = User::factory()
+            ->create([
+                'email' => 'vendor@example.com',
+            ]);
+
+        $vendor->assignRole('vendor');
+
+        Brand::factory(10)
+            ->create([
+                'vendor_id' => $vendor->id,
+            ]);
+
+        Category::factory(10)
+            ->create([
+                'vendor_id' => $vendor->id,
+            ]);
+
+        Product::factory(10)
+            ->create([
+                'vendor_id' => $vendor->id,
+                'brand_id' => 'brand-123',
+            ])
+            ->each(function ($product) {
+                $product->categories()->attach(Category::get()->random(rand(1, 3)));
+                $product->update([
+                    'brand_id' => Brand::get()->random(1)->first()->id,
+                ]);
+            });
     }
 }

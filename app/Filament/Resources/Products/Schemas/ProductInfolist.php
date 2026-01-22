@@ -34,8 +34,6 @@ class ProductInfolist
                         TextEntry::make('categories.name')
                             ->label('Categories')
                             ->badge()
-                            ->limitList(3)
-                            ->expandableLimitedList()
                             ->placeholder('-'),
 
                         TextEntry::make('price')

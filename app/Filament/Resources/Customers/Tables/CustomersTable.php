@@ -14,7 +14,6 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class CustomersTable
 {
@@ -25,11 +24,7 @@ class CustomersTable
                 TextColumn::make('name')
                     ->label('Full Name')
                     ->sortable()
-                    ->searchable(query: function (Builder $query, string $search): Builder {
-                        return $query
-                            ->where('first_name', 'ilike', "%{$search}%")
-                            ->orWhere('last_name', 'ilike', "%{$search}%");
-                    }),
+                    ->searchable(),
                 TextColumn::make('email')
                     ->sortable(),
                 TextColumn::make('phone')

@@ -11,13 +11,10 @@ class CustomerForm
     {
         return $schema
             ->components([
-                TextInput::make('first_name')
-                    ->label('First Name')
+                TextInput::make('name')
+                    ->label('Full name')
                     ->required()
                     ->autofocus(),
-                TextInput::make('last_name')
-                    ->label('Last Name')
-                    ->required(),
                 TextInput::make('email')
                     ->label('Email')
                     ->required()

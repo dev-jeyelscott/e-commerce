@@ -9,23 +9,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
- * @property string $first_name
- * @property string $last_name
+ * @property string $name
  * @property string $email
  * @property \Carbon\CarbonImmutable|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
- * @property string $phone
- * @property string $address
- * @property string $city
- * @property string $state
- * @property string $country
- * @property string $postal_code
+ * @property string|null $phone
+ * @property string|null $address
+ * @property string|null $city
+ * @property string|null $state
+ * @property string|null $country
+ * @property string|null $postal_code
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read string $full_address
- * @property-read string $name
  *
  * @method static \Database\Factories\CustomerFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer newModelQuery()
@@ -39,9 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer wherePostalCode($value)
@@ -72,8 +69,7 @@ class Customer extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'password',
         'phone',
@@ -104,11 +100,6 @@ class Customer extends Model
     public function getRouteKeyName(): string
     {
         return 'id';
-    }
-
-    public function getNameAttribute(): string
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 
     public function getFullAddressAttribute(): string

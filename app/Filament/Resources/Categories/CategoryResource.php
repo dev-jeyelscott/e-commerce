@@ -55,4 +55,13 @@ class CategoryResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (auth()->user()->hasRole('system admin')) {
+            return (string) static::getModel()::count();
+        }
+
+        return (string) static::getModel()::where('vendor_id', auth()->id())->count();
+    }
 }

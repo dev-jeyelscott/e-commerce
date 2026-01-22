@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class BrandFactory extends Factory
     public function definition(): array
     {
         return [
+            'vendor_id' => User::factory(),
             'name' => $this->faker->company(),
         ];
     }

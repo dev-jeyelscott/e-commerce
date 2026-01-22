@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->ulid('id')->primary()->unique();
+            $table->foreignUlid('vendor_id')->references('id')->on('users')->index();
             $table->string('name');
             $table->longText('description')->nullable();
             $table->foreignUlid('brand_id')->nullable()->index();
