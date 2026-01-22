@@ -14,7 +14,6 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class CustomersTable
 {
@@ -38,21 +37,21 @@ class CustomersTable
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

@@ -19,7 +19,7 @@ class CustomerForm
                     ->label('Email')
                     ->required()
                     ->disabled(
-                        fn(string $context): bool => $context === 'edit',
+                        fn (string $context): bool => $context === 'edit',
                     )
                     ->email(),
                 TextInput::make('phone')
@@ -31,14 +31,14 @@ class CustomerForm
                     ->confirmed()
                     ->password()
                     ->visible(
-                        fn(string $context): bool => $context === 'create',
+                        fn (string $context): bool => $context === 'create',
                     )
                     ->revealable(),
                 TextInput::make('password_confirmation')
                     ->label('Confirm Password')
                     ->required()
                     ->visible(
-                        fn(string $context): bool => $context === 'create',
+                        fn (string $context): bool => $context === 'create',
                     )
                     ->password()
                     ->revealable(),

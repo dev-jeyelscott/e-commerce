@@ -74,7 +74,7 @@ class ProductInfolist
                                 ->label('Deleted At')
                                 ->since()
                                 ->dateTimeTooltip()
-                                ->visible(fn(Product $record): bool => $record->trashed()),
+                                ->visible(fn (Product $record): bool => $record->trashed()),
                         ]),
                 ]),
             ]);
