@@ -20,9 +20,8 @@ class CategoriesTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(function (Builder $builder) {
+            ->modifyQueryUsing(function (Builder $builder): void {
                 if (auth()->user()->hasRole('system admin')) {
-                    $builder;
                 }
 
                 $builder->where(['vendor_id' => auth()->id()]);

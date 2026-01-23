@@ -49,7 +49,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Tests
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest --parallel
         env:
           APP_ENV: testing
           DB_CONNECTION: sqlite
