@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -56,8 +58,11 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasRoles, HasUlids, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory;
+    use HasRoles;
+    use HasUlids;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The "type" of the primary key ID.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Products\Schemas;
 
 use App\Models\Product;
@@ -74,7 +76,7 @@ class ProductInfolist
                                 ->label('Deleted At')
                                 ->since()
                                 ->dateTimeTooltip()
-                                ->visible(fn (Product $record): bool => $record->trashed()),
+                                ->visible(fn (Product $product): bool => $product->trashed()),
                         ]),
                 ]),
             ]);

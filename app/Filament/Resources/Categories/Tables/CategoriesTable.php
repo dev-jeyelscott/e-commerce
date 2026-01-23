@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Categories\Tables;
 
 use Filament\Actions\BulkActionGroup;
@@ -18,12 +20,12 @@ class CategoriesTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(function (Builder $query) {
+            ->modifyQueryUsing(function (Builder $builder) {
                 if (auth()->user()->hasRole('system admin')) {
-                    return $query;
+                    $builder;
                 }
 
-                return $query->where(['vendor_id' => auth()->id()]);
+                $builder->where(['vendor_id' => auth()->id()]);
             })
             ->columns([
                 TextColumn::make('name')

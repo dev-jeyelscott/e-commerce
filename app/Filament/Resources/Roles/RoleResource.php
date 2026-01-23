@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Roles;
 
 use App\Filament\Resources\Roles\Pages\CreateRole;
@@ -37,6 +39,9 @@ class RoleResource extends Resource
         return RolesTable::configure($table);
     }
 
+    /**
+     * @return array{}
+     */
     public static function getRelations(): array
     {
         return [
@@ -44,6 +49,9 @@ class RoleResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, \Filament\Resources\Pages\PageRegistration>
+     */
     public static function getPages(): array
     {
         return [

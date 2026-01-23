@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Brands\Pages;
 
 use App\Filament\Resources\Brands\BrandResource;
@@ -10,6 +12,9 @@ class ListBrands extends ListRecords
 {
     protected static string $resource = BrandResource::class;
 
+    /**
+     * @return \Filament\Actions\CreateAction[]
+     */
     protected function getHeaderActions(): array
     {
         return [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Customers\Pages;
 
 use App\Filament\Resources\Customers\CustomerResource;
@@ -10,6 +12,9 @@ class ListCustomers extends ListRecords
 {
     protected static string $resource = CustomerResource::class;
 
+    /**
+     * @return \Filament\Actions\CreateAction[]
+     */
     protected function getHeaderActions(): array
     {
         return [

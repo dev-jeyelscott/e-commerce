@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Categories;
 
 use App\Filament\Resources\Categories\Pages\CreateCategory;
@@ -32,6 +34,9 @@ class CategoryResource extends Resource
         return CategoriesTable::configure($table);
     }
 
+    /**
+     * @return array{}
+     */
     public static function getRelations(): array
     {
         return [
@@ -39,6 +44,9 @@ class CategoryResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, \Filament\Resources\Pages\PageRegistration>
+     */
     public static function getPages(): array
     {
         return [

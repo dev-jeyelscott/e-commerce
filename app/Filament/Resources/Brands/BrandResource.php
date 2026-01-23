@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Brands;
 
 use App\Filament\Resources\Brands\Pages\CreateBrand;
@@ -34,6 +36,9 @@ class BrandResource extends Resource
         return BrandsTable::configure($table);
     }
 
+    /**
+     * @return array{}
+     */
     public static function getRelations(): array
     {
         return [
@@ -41,6 +46,9 @@ class BrandResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, \Filament\Resources\Pages\PageRegistration>
+     */
     public static function getPages(): array
     {
         return [

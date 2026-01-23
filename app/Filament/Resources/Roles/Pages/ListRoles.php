@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Roles\Pages;
 
 use App\Filament\Resources\Roles\RoleResource;
@@ -10,6 +12,9 @@ class ListRoles extends ListRecords
 {
     protected static string $resource = RoleResource::class;
 
+    /**
+     * @return \Filament\Actions\CreateAction[]
+     */
     protected function getHeaderActions(): array
     {
         return [

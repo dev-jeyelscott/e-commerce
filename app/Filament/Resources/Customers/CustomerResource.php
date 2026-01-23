@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Customers;
 
 use App\Filament\Resources\Customers\Pages\CreateCustomer;
@@ -44,6 +46,9 @@ class CustomerResource extends Resource
         return CustomersTable::configure($table);
     }
 
+    /**
+     * @return array{}
+     */
     public static function getRelations(): array
     {
         return [
@@ -51,6 +56,9 @@ class CustomerResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, \Filament\Resources\Pages\PageRegistration>
+     */
     public static function getPages(): array
     {
         return [

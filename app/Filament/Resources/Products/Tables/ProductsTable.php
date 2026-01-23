@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Products\Tables;
 
 use Filament\Actions\BulkActionGroup;
@@ -20,12 +22,12 @@ class ProductsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(function (Builder $query) {
+            ->modifyQueryUsing(function (Builder $builder) {
                 if (auth()->user()->hasRole('system admin')) {
-                    return $query;
+                    $builder;
                 }
 
-                return $query->where(['vendor_id' => auth()->id()]);
+                $builder->where(['vendor_id' => auth()->id()]);
             })
             ->columns([
                 ImageColumn::make('images')
@@ -55,21 +57,21 @@ class ProductsTable
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

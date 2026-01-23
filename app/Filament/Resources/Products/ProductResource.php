@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Products;
 
 use App\Filament\Resources\Products\Pages\CreateProduct;
@@ -39,6 +41,9 @@ class ProductResource extends Resource
         return ProductsTable::configure($table);
     }
 
+    /**
+     * @return array{}
+     */
     public static function getRelations(): array
     {
         return [
@@ -46,6 +51,9 @@ class ProductResource extends Resource
         ];
     }
 
+    /**
+     * @return array<string, \Filament\Resources\Pages\PageRegistration>
+     */
     public static function getPages(): array
     {
         return [

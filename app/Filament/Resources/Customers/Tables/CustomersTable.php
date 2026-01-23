@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Customers\Tables;
 
 use Filament\Actions\BulkActionGroup;
@@ -14,12 +16,20 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $builder) {
+                if (auth()->user()->hasRole('system admin')) {
+                    $builder;
+                }
+
+                $builder->where(['vendor_id' => auth()->id()]);
+            })
             ->columns([
                 TextColumn::make('name')
                     ->label('Full Name')
@@ -37,21 +47,21 @@ class CustomersTable
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->deleted_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->deleted_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->created_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->created_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->since()
                     ->sortable()
                     ->tooltip(
-                        fn ($record): string => $record->updated_at->format('M d, Y H:i:s')
+                        fn($record): string => $record->updated_at->format('M d, Y H:i:s')
                     )
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

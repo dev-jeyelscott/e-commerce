@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Brands\Pages;
 
 use App\Filament\Resources\Brands\BrandResource;
@@ -12,6 +14,9 @@ class EditBrand extends EditRecord
 {
     protected static string $resource = BrandResource::class;
 
+    /**
+     * @return \Filament\Actions\Action[]
+     */
     protected function getHeaderActions(): array
     {
         return [

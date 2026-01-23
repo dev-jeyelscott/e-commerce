@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Customers\Schemas;
 
 use App\Models\Customer;
@@ -51,7 +53,7 @@ class CustomerInfolist
                             ->label('Deleted At')
                             ->since()
                             ->dateTimeTooltip()
-                            ->visible(fn (Customer $record): bool => $record->trashed()),
+                            ->visible(fn (Customer $customer): bool => $customer->trashed()),
                     ]),
             ])
             ->columns(2);

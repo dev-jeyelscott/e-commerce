@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
@@ -21,10 +23,10 @@ class PasswordController extends Controller
     /**
      * Update the user's password.
      */
-    public function update(PasswordUpdateRequest $request): RedirectResponse
+    public function update(PasswordUpdateRequest $passwordUpdateRequest): RedirectResponse
     {
-        $request->user()->update([
-            'password' => $request->password,
+        $passwordUpdateRequest->user()->update([
+            'password' => $passwordUpdateRequest->password,
         ]);
 
         return back();
