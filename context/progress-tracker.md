@@ -9,7 +9,7 @@ change.
 
 ## Current Goal
 
-- Continue foundation work after applying the shadcn preset.
+- Choose the next implementation unit after completing the storefront navbar.
 
 ## Completed
 
@@ -20,6 +20,10 @@ change.
   `b6q0jtj81w`, updated the shadcn style to Radix Mira, base color to Mauve,
   Lucide icons, Raleway body font, Montserrat heading font, preset theme/chart
   tokens, radius, menu settings, and regenerated preset components.
+- Frontend navbar from `context/feature-spec/03-frontend-navbar.md`:
+  replaced the starter app shell with a static storefront navbar using the
+  shadcn navigation menu and button components, with ShopHub on the left,
+  Products and Categories centered, and Login and Signup on the right.
 
 ## In Progress
 
@@ -53,3 +57,6 @@ change.
 - `react-day-picker` is pinned to `9.14.0` because the generated Calendar
   component uses the v9 classNames API.
 - `npm run lint` and `npm run build` pass after the preset application.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the navbar
+  implementation. `npm.cmd` is required in this environment because PowerShell
+  execution policy blocks `npm.ps1`.
