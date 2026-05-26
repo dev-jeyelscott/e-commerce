@@ -59,7 +59,7 @@ Stores social login accounts.
 user_identities
 - id UUID PK
 - user_id UUID FK -> users.id
-- provider ENUM('google', 'facebook', 'instagram')
+- provider ENUM('google', 'facebook')
 - provider_user_id VARCHAR
 - provider_email VARCHAR NULL
 - access_token TEXT NULL
