@@ -1,13 +1,11 @@
 import { verifyWebhook } from '@clerk/backend/webhooks'
-import { getServerEnv } from '../env'
 import { syncClerkUserToAppUser } from '../users/sync-clerk-user'
 
 export async function handleClerkWebhook(request: Request) {
   try {
-    getServerEnv('CLERK_WEBHOOK_SIGNING_SECRET')
     const event = await verifyWebhook(request)
 
-    if (event.type === 'user.created') {
+    if (event.type === 'user.created' || event.type === 'user.updated') {
       await syncClerkUserToAppUser(event.data)
     }
 

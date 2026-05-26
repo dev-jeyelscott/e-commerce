@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm'
 import { users } from '../../src/db/schema'
 import { getDb } from '../db/client'
 
@@ -56,7 +57,7 @@ export async function syncClerkUserToAppUser(user: ClerkUserData) {
 
   const now = new Date()
   const primaryPhone = getPrimaryPhone(user)
-  const emailVerifiedAt = primaryEmail.verification?.status === 'verified' ? now : null
+  const isVerified  = primaryEmail.verification?.status === 'verified'
 
   await db
     .insert(users)
@@ -66,7 +67,7 @@ export async function syncClerkUserToAppUser(user: ClerkUserData) {
       lastName: user.last_name,
       displayName: getDisplayName(user),
       email: primaryEmail.email_address,
-      emailVerifiedAt,
+      emailVerifiedAt: isVerified ? now : null,
       phone: primaryPhone?.phone_number ?? null,
       avatarUrl: user.image_url,
       status: 'active',
@@ -79,7 +80,9 @@ export async function syncClerkUserToAppUser(user: ClerkUserData) {
         lastName: user.last_name,
         displayName: getDisplayName(user),
         email: primaryEmail.email_address,
-        emailVerifiedAt,
+        emailVerifiedAt: isVerified 
+         ? sql`COALESCE(${users.emailVerifiedAt}, ${now})`
+         : null,
         phone: primaryPhone?.phone_number ?? null,
         avatarUrl: user.image_url,
         updatedAt: now,

@@ -22,15 +22,21 @@ export function ClerkUserSync() {
         return
       }
 
-      const response = await fetch('/api/users/sync', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      try {
+        const response = await fetch('/api/users/sync', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
 
-      if (response.ok) {
-        sessionStorage.setItem(syncKey, 'true')
+        if (response.ok) {
+          sessionStorage.setItem(syncKey, 'true')
+        } else {
+          console.error('Failed to sync user:', response.status, response.statusText)
+        }
+      } catch (error) {
+        console.error('Error syncing user:', error)
       }
     }
 

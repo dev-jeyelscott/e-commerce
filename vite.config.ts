@@ -63,9 +63,7 @@ export default defineConfig({
     },
   ],
   server: {
-    allowedHosts: [
-      'unsworn-stock-naturist.ngrok-free.dev',
-    ],
+    allowedHosts: ["unsworn-stock-naturist.ngrok-free.dev"],
   },
   resolve: {
     alias: {
