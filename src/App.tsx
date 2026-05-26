@@ -1,6 +1,7 @@
 import './App.css'
-import { Show, UserButton, useAuth } from '@clerk/react'
+import { Show, UserButton } from '@clerk/react'
 import { Button } from '@/components/ui/button'
+import { ClerkUserSync } from '@/components/ClerkUserSync'
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -13,7 +14,7 @@ import { HomePage } from '@/pages/HomePage'
 import { ProductsPage } from '@/pages/ProductsPage'
 import { SignInPage } from '@/pages/SignInPage'
 import { SignUpPage } from '@/pages/SignUpPage'
-import { Link, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
 function Navbar() {
   return (
@@ -58,6 +59,7 @@ function Navbar() {
 function AppShell() {
   return (
     <div className="app-shell">
+      <ClerkUserSync />
       <Navbar />
       <main className="app-content">
         <Outlet />
@@ -66,44 +68,15 @@ function AppShell() {
   )
 }
 
-function ProtectedRoute() {
-  const { isLoaded, isSignedIn } = useAuth()
-  const location = useLocation()
-
-  if (!isLoaded) {
-    return (
-      <div className="auth-status" role="status" aria-live="polite">
-        Loading account...
-      </div>
-    )
-  }
-
-  if (!isSignedIn) {
-    const nextPath = `${location.pathname}${location.search}${location.hash}`
-
-    return (
-      <Navigate
-        to={`${clerkRoutes.signIn}?redirect_url=${encodeURIComponent(nextPath)}`}
-        replace
-      />
-    )
-  }
-
-  return <Outlet />
-}
-
 function App() {
   return (
     <Routes>
       <Route element={<AppShell />}>
         <Route path={`${clerkRoutes.signIn}/*`} element={<SignInPage />} />
         <Route path={`${clerkRoutes.signUp}/*`} element={<SignUpPage />} />
-
-        <Route element={<ProtectedRoute />}>
-          <Route path={clerkRoutes.home} element={<HomePage />} />
-          <Route path={clerkRoutes.products} element={<ProductsPage />} />
-          <Route path={clerkRoutes.categories} element={<CategoriesPage />} />
-        </Route>
+        <Route path={clerkRoutes.home} element={<HomePage />} />
+        <Route path={clerkRoutes.products} element={<ProductsPage />} />
+        <Route path={clerkRoutes.categories} element={<CategoriesPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to={clerkRoutes.home} replace />} />

@@ -51,6 +51,7 @@ Run `npm run build` before considering an implementation unit complete. Run `npm
 - Do not mix unrelated system boundaries in one change, such as storefront UI, merchant workflows, and admin governance.
 - Prefer established project patterns over new abstractions.
 - Do not modify generated UI library components or third-party internals unless explicitly requested.
+- Use proper table naming convention when generating SQL files.
 
 ## Domain Rules
 

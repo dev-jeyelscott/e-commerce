@@ -11,7 +11,7 @@ Create this pages:
 ## Implementation
 
 - Don't add any UI, display only the page name in the middle.
-- Make the login and signup UI of the the in the center of the page.
+- Center the Clerk login and signup UI on the page.
 - Make sure the website don't reload when navigating.
 
 ## Checks when done

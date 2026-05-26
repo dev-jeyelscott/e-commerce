@@ -10,7 +10,6 @@ export function SignInPage() {
         routing="path"
         signUpUrl={clerkRoutes.signUp}
         fallbackRedirectUrl={clerkRoutes.home}
-        forceRedirectUrl={clerkRoutes.home}
       />
     </section>
   )

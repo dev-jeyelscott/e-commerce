@@ -35,6 +35,33 @@ change.
   added Home, Products, Categories, Login, and Signup routes using
   `react-router-dom`, centered the placeholder page names, centered Clerk's
   sign-in/sign-up UI, and changed storefront navigation to client-side links.
+- Clerk users to app users table from
+  `context/feature-spec/06-users-with-clerk-auth.md`: installed Drizzle ORM,
+  Postgres, Drizzle Kit, and Clerk backend webhook support; added the
+  PostgreSQL `users` schema and generated migration; added a signed Clerk
+  `user.created` webhook sync that upserts Clerk user data into the app users
+  table; documented required database/webhook environment variables; and made
+  Home, Products, and Categories publicly accessible.
+- Docker PostgreSQL with Drizzle from
+  `context/feature-spec/07-docker-postgres.md`: added Docker Compose for local
+  PostgreSQL using the configured database URL credentials, renamed the initial
+  generated migration to `0000_create_users.sql`, taught Drizzle Kit to load
+  Vite-style env files, started the Docker PostgreSQL service, and applied the
+  migration successfully.
+- Clerk user database sync fix: investigated missing local `users` records
+  after Clerk signup, added server-side `.env.local` loading for database and
+  Clerk server code, added an authenticated `/api/users/sync` fallback that
+  verifies the signed-in Clerk session, fetches the Clerk user server-side, and
+  upserts the app `users` table, and wired the React shell to trigger the sync
+  once per signed-in user session.
+- Ngrok Clerk user sync fix: replaced lower-level manual Clerk token
+  verification in `/api/users/sync` with Clerk Backend SDK request
+  authentication so signed-in sessions coming through the ngrok host are
+  authenticated from the actual request before syncing the user.
+- Clerk local clock skew fix: allowed a 60-second clock skew while
+  authenticating `/api/users/sync` session tokens because the dev server clock
+  can lag Clerk token `nbf` timestamps by a few seconds when signing up through
+  ngrok.
 
 ## In Progress
 
@@ -83,3 +110,28 @@ change.
   React app structure while keeping Clerk's built-in auth and user menu flows.
 - `npm.cmd run lint` and `npm.cmd run build` pass after the storefront pages
   implementation.
+- `npm.cmd run db:generate` created the initial Drizzle migration for the
+  `users` table.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the Clerk users to app
+  users table implementation.
+- Real Clerk signup persistence requires `DATABASE_URL` and
+  `CLERK_WEBHOOK_SIGNING_SECRET` to be configured before running
+  `npm.cmd run db:migrate` and receiving Clerk webhook events.
+- `docker compose up -d postgres` starts a healthy local PostgreSQL container
+  mapped to host port `5432`.
+- `npm.cmd run db:migrate` applies the renamed `0000_create_users.sql`
+  migration successfully against the Docker PostgreSQL database.
+- Verified the app-side Postgres client can connect using the configured
+  `DATABASE_URL` and query the `postgres` database.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the Docker PostgreSQL
+  wiring.
+- Missing Clerk signup records were caused by relying only on Clerk webhooks
+  for local persistence. Local Clerk webhooks require a public tunnel and a
+  configured `CLERK_WEBHOOK_SIGNING_SECRET`; the app now also syncs the current
+  signed-in Clerk user through a local authenticated API endpoint.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the Clerk user sync
+  fallback fix.
+- `npm.cmd run lint` and `npm.cmd run build` pass after switching
+  `/api/users/sync` to Clerk request authentication for ngrok signups.
+- `npm.cmd run lint` and `npm.cmd run build` pass after adding the
+  `/api/users/sync` Clerk token clock-skew allowance.
