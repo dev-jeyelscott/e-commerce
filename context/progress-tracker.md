@@ -62,6 +62,17 @@ change.
   authenticating `/api/users/sync` session tokens because the dev server clock
   can lag Clerk token `nbf` timestamps by a few seconds when signing up through
   ngrok.
+- Storefront page layouts from
+  `context/feature-spec/08-storefront-page-layouts.md`: replaced the Home,
+  Products, and Categories placeholders with dummy-data storefront layouts;
+  added reusable product tiles, category tiles, storefront toolbar controls,
+  pagination, and shared storefront dummy data; implemented the home carousel,
+  featured products, best sellers, and merchant selling section; implemented
+  product search/filter/sort controls with 30 product tiles; and implemented a
+  visually distinct categories page with 20 category tiles.
+- TypeScript node build typing fix: added the DOM lib to `tsconfig.node.json`
+  because the existing Vite/API request adapters use standard Fetch API types
+  such as `Request` and `HeadersInit`.
 
 ## In Progress
 
@@ -135,3 +146,6 @@ change.
   `/api/users/sync` to Clerk request authentication for ngrok signups.
 - `npm.cmd run lint` and `npm.cmd run build` pass after adding the
   `/api/users/sync` Clerk token clock-skew allowance.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the storefront page
+  layouts implementation. Build emits the existing Vite chunk-size warning for
+  a bundle over 500 kB.
