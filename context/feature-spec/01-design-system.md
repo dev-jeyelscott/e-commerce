@@ -56,5 +56,5 @@ Create `lib/utils.ts` with a reusable `cn()` helper for merging Tailwind classes
 
 ## Checks when done
 
-- all components imported with errors
+- all components imported without errors
 - `cn()` works properly
