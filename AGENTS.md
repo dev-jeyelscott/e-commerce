@@ -41,12 +41,17 @@ Run `npm run build` before considering an implementation unit complete. Run `npm
 ## Implementation Rules
 
 - Work in small, verifiable units.
+- No spaghetti code.
+- Keep every component minimal and short.
+- Create a new file for new component.
+- Don't create your own css, use tailwind classes.
 - Implement only behavior defined in the context files.
 - If requirements are unclear, update `context/progress-tracker.md` with an open question before building speculative behavior.
 - Keep context docs in sync when implementation changes architecture, feature scope, data model, or conventions.
 - Do not mix unrelated system boundaries in one change, such as storefront UI, merchant workflows, and admin governance.
 - Prefer established project patterns over new abstractions.
 - Do not modify generated UI library components or third-party internals unless explicitly requested.
+- Use proper table naming convention when generating SQL files.
 
 ## Domain Rules
 

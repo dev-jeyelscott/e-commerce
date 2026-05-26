@@ -1,39 +1,42 @@
-import "./App.css"
-import { Button } from "@/components/ui/button"
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu"
+import './App.css'
+import { ClerkUserSync } from '@/components/ClerkUserSync'
+
+import { clerkRoutes } from '@/lib/clerk'
+import { CategoriesPage } from '@/pages/CategoriesPage'
+import { HomePage } from '@/pages/HomePage'
+import { ProductsPage } from '@/pages/ProductsPage'
+import { SignInPage } from '@/pages/SignInPage'
+import { SignUpPage } from '@/pages/SignUpPage'
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import Navbar from './components/navbar/navbar'
+
+
+
+function AppShell() {
+  return (
+    <div className="app-shell">
+      <ClerkUserSync />
+      <Navbar />
+      <main className="app-content">
+        <Outlet />
+      </main>
+    </div>
+  )
+}
 
 function App() {
   return (
-    <div className="app-shell">
-      <header className="navbar" aria-label="Storefront navigation">
-        <div className="navbar__brand">
-          <span>ShopHub</span>
-        </div>
+    <Routes>
+      <Route element={<AppShell />}>
+        <Route path={`${clerkRoutes.signIn}/*`} element={<SignInPage />} />
+        <Route path={`${clerkRoutes.signUp}/*`} element={<SignUpPage />} />
+        <Route path={clerkRoutes.home} element={<HomePage />} />
+        <Route path={clerkRoutes.products} element={<ProductsPage />} />
+        <Route path={clerkRoutes.categories} element={<CategoriesPage />} />
+      </Route>
 
-        <NavigationMenu viewport={false} className="navbar__center">
-          <NavigationMenuList className="navbar__menu-list">
-            <NavigationMenuItem>
-              <NavigationMenuLink href="/">Products</NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink href="/">Categories</NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-
-        <div className="navbar__actions">
-          <Button type="button" variant="ghost">
-            Login
-          </Button>
-          <Button type="button">Signup</Button>
-        </div>
-      </header>
-    </div>
+      <Route path="*" element={<Navigate to={clerkRoutes.home} replace />} />
+    </Routes>
   )
 }
 
