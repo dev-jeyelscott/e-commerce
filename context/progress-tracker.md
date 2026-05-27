@@ -62,6 +62,29 @@ change.
   authenticating `/api/users/sync` session tokens because the dev server clock
   can lag Clerk token `nbf` timestamps by a few seconds when signing up through
   ngrok.
+- Storefront page layouts from
+  `context/feature-spec/08-storefront-page-layouts.md`: replaced the Home,
+  Products, and Categories placeholders with dummy-data storefront layouts;
+  added reusable product tiles, category tiles, storefront toolbar controls,
+  pagination, and shared storefront dummy data; implemented the home carousel,
+  featured products, best sellers, and merchant selling section; implemented
+  product search/filter/sort controls with 30 product tiles; and implemented a
+  visually distinct categories page with 20 category tiles.
+- TypeScript node build typing fix: added the DOM lib to `tsconfig.node.json`
+  because the existing Vite/API request adapters use standard Fetch API types
+  such as `Request` and `HeadersInit`.
+- Clerk user sync upsert fix: changed the `/api/users/sync` database upsert
+  to avoid passing a raw JavaScript `Date` inside a Drizzle SQL fragment,
+  which caused the Postgres driver to reject the verified-email update during
+  login/signup redirects.
+- Cart and checkout page layouts from
+  `context/feature-spec/09-cart-and-checkout-layouts.md`: added UI-only
+  dummy-data Cart and Checkout routes, reusable cart product row and summary
+  components, cart navigation, selected item checkboxes, initial 20-row cart
+  rendering with scroll-based loading for the remaining dummy products,
+  quantity controls with zero-quantity delete confirmation, price/discount
+  totals, checkout product review, payment method radio options, voucher input,
+  and place-order summary.
 
 ## In Progress
 
@@ -135,3 +158,18 @@ change.
   `/api/users/sync` to Clerk request authentication for ngrok signups.
 - `npm.cmd run lint` and `npm.cmd run build` pass after adding the
   `/api/users/sync` Clerk token clock-skew allowance.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the storefront page
+  layouts implementation. Build emits the existing Vite chunk-size warning for
+  a bundle over 500 kB.
+- Reproduced the Clerk user sync upsert locally against the existing
+  PostgreSQL `users` row and confirmed it now returns `ok`.
+- Verified an unverified Clerk email sync no longer clears an existing
+  `email_verified_at` timestamp.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the Clerk user sync
+  upsert fix. Build still emits the existing Vite chunk-size warning for a
+  bundle over 500 kB.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the cart and checkout
+  page layouts implementation. Build still emits the existing Vite chunk-size
+  warning for a bundle over 500 kB.
+- Vite dev server is reachable at `http://localhost:5173/cart` and
+  `http://localhost:5173/checkout`.

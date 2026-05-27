@@ -57,7 +57,9 @@ export async function syncClerkUserToAppUser(user: ClerkUserData) {
 
   const now = new Date()
   const primaryPhone = getPrimaryPhone(user)
-  const isVerified  = primaryEmail.verification?.status === 'verified'
+  const isVerified = primaryEmail.verification?.status === 'verified'
+  const verifiedAt = isVerified ? now : null
+  const verifiedAtIso = now.toISOString()
 
   await db
     .insert(users)
@@ -67,7 +69,7 @@ export async function syncClerkUserToAppUser(user: ClerkUserData) {
       lastName: user.last_name,
       displayName: getDisplayName(user),
       email: primaryEmail.email_address,
-      emailVerifiedAt: isVerified ? now : null,
+      emailVerifiedAt: verifiedAt,
       phone: primaryPhone?.phone_number ?? null,
       avatarUrl: user.image_url,
       status: 'active',
@@ -80,9 +82,9 @@ export async function syncClerkUserToAppUser(user: ClerkUserData) {
         lastName: user.last_name,
         displayName: getDisplayName(user),
         email: primaryEmail.email_address,
-        emailVerifiedAt: isVerified 
-         ? sql`COALESCE(${users.emailVerifiedAt}, ${now})`
-         : null,
+        emailVerifiedAt: isVerified
+          ? sql`COALESCE(${users.emailVerifiedAt}, ${verifiedAtIso}::timestamptz)`
+          : users.emailVerifiedAt,
         phone: primaryPhone?.phone_number ?? null,
         avatarUrl: user.image_url,
         updatedAt: now,

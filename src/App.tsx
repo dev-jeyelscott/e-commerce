@@ -2,7 +2,9 @@ import './App.css'
 import { ClerkUserSync } from '@/components/ClerkUserSync'
 
 import { clerkRoutes } from '@/lib/clerk'
+import { CartPage } from '@/pages/CartPage'
 import { CategoriesPage } from '@/pages/CategoriesPage'
+import { CheckoutPage } from '@/pages/CheckoutPage'
 import { HomePage } from '@/pages/HomePage'
 import { ProductsPage } from '@/pages/ProductsPage'
 import { SignInPage } from '@/pages/SignInPage'
@@ -33,6 +35,8 @@ function App() {
         <Route path={clerkRoutes.home} element={<HomePage />} />
         <Route path={clerkRoutes.products} element={<ProductsPage />} />
         <Route path={clerkRoutes.categories} element={<CategoriesPage />} />
+        <Route path={clerkRoutes.cart} element={<CartPage />} />
+        <Route path={clerkRoutes.checkout} element={<CheckoutPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to={clerkRoutes.home} replace />} />
