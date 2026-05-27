@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Show, UserButton } from '@clerk/react'
 import { Button } from '@/components/ui/button'
+import { ShoppingCart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { clerkRoutes } from '@/lib/clerk'
 
@@ -32,6 +33,7 @@ export default function Navbar() {
       </NavigationMenu>
 
       <div className="navbar__actions">
+
         <Show when="signed-out">
           <Button asChild type="button" variant="ghost">
             <Link to={clerkRoutes.signIn}>Login</Link>
@@ -40,8 +42,14 @@ export default function Navbar() {
             <Link to={clerkRoutes.signUp}>Signup</Link>
           </Button>
         </Show>
-
+        
         <Show when="signed-in">
+          
+          <Button asChild type="button" variant="ghost" size="icon" aria-label="Cart">
+            <Link to={clerkRoutes.cart}>
+              <ShoppingCart />
+            </Link>
+          </Button>
           <UserButton />
         </Show>
       </div>

@@ -77,6 +77,14 @@ change.
   to avoid passing a raw JavaScript `Date` inside a Drizzle SQL fragment,
   which caused the Postgres driver to reject the verified-email update during
   login/signup redirects.
+- Cart and checkout page layouts from
+  `context/feature-spec/09-cart-and-checkout-layouts.md`: added UI-only
+  dummy-data Cart and Checkout routes, reusable cart product row and summary
+  components, cart navigation, selected item checkboxes, initial 20-row cart
+  rendering with scroll-based loading for the remaining dummy products,
+  quantity controls with zero-quantity delete confirmation, price/discount
+  totals, checkout product review, payment method radio options, voucher input,
+  and place-order summary.
 
 ## In Progress
 
@@ -160,3 +168,8 @@ change.
 - `npm.cmd run lint` and `npm.cmd run build` pass after the Clerk user sync
   upsert fix. Build still emits the existing Vite chunk-size warning for a
   bundle over 500 kB.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the cart and checkout
+  page layouts implementation. Build still emits the existing Vite chunk-size
+  warning for a bundle over 500 kB.
+- Vite dev server is reachable at `http://localhost:5173/cart` and
+  `http://localhost:5173/checkout`.

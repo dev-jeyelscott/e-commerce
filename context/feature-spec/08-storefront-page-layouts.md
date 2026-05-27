@@ -17,8 +17,7 @@ I want you to create a layout for storefront page layouts:
 - display 30 products , 5 each row with product name at the bottom, price, discounted price if any, a promo banner if any, and add to cart button
 - pagination
 
-## Categoies
-
+## Categories
 
 - search bar
 - filters
