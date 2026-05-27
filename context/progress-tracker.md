@@ -85,6 +85,24 @@ change.
   quantity controls with zero-quantity delete confirmation, price/discount
   totals, checkout product review, payment method radio options, voucher input,
   and place-order summary.
+- Next.js RSC component layout migration from
+  `context/feature-spec/10-component-layout.md`: migrated the active app
+  runtime from Vite and React Router to Next.js App Router, added App Router
+  pages and API route handlers, moved custom components into folder-based
+  `base.tsx`, `base.server.tsx`, `base.loading.tsx`, and `base.client.tsx`
+  layouts, kept dummy data loading in server files, kept browser state in
+  client files, replaced active React Router and Vite dependencies, and enabled
+  shadcn RSC mode.
+- Ngrok Clerk dev fix: allowed the active ngrok host through Next.js
+  `allowedDevOrigins`, made allowed dev origins configurable through
+  `NEXT_ALLOWED_DEV_ORIGINS`, rendered navbar auth state with Clerk `useAuth()`
+  so loading/signed-in/signed-out states are explicit, and removed a structural
+  Clerk CSS selector warning.
+- RSC component filename convention cleanup: renamed custom component files
+  from generic `base*` names to folder-matched names such as
+  `cart-layout.tsx`, `cart-layout.server.tsx`, `cart-layout.loading.tsx`, and
+  `cart-layout.client.tsx`; updated all matching imports; and removed empty
+  legacy component folders.
 
 ## In Progress
 
@@ -112,10 +130,12 @@ change.
 - Use the `b6q0jtj81w` shadcn preset as the active UI preset. It sets
   `components.json` to Radix Mira with Mauve base color, Lucide icons, default
   menu color, and subtle menu accent.
-- Keep Clerk integrated at the React entrypoint and route layer for the current
-  Vite app. The repository is not yet running a Next.js App Router runtime, so
-  `src/main.tsx` and React Router are the active equivalents to a Next root
-  layout and protected route setup.
+- Clerk was initially integrated at the Vite React entrypoint and React Router
+  route layer before the Next.js migration.
+- Use Next.js App Router as the active runtime after
+  `context/feature-spec/10-component-layout.md`. Root layout, storefront pages,
+  auth pages, and API handlers now live under `src/app/`; reusable custom
+  components use the requested RSC folder pattern under `src/components/`.
 
 ## Session Notes
 
@@ -171,5 +191,32 @@ change.
 - `npm.cmd run lint` and `npm.cmd run build` pass after the cart and checkout
   page layouts implementation. Build still emits the existing Vite chunk-size
   warning for a bundle over 500 kB.
+- `npm.cmd install` completed after the Next.js migration and installed the
+  Next runtime dependencies. npm reported an unsupported-engine warning for
+  `mute-stream@4.0.0` because the local Node version is `24.11.0` while that
+  package asks for `^22.22.2 || ^24.15.0 || >=26.0.0`.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the Next.js RSC
+  component layout migration.
+- Verified the required routes on the restarted Next dev server at
+  `http://127.0.0.1:3000`: `/`, `/products`, `/categories`, `/cart`,
+  `/checkout`, `/sign-in`, and `/sign-up` return `200`; unauthenticated
+  `POST /api/users/sync` returns `401`; `GET /api/webhooks/clerk` returns
+  `405`.
+- Confirmed the custom component folders for navbar, product tile, category
+  tile, storefront toolbar, storefront pagination, cart product row, cart
+  summary, Clerk user sync, home storefront content, product listing, category
+  listing, cart layout, checkout layout, sign-in page, and sign-up page each
+  contain `base.tsx`, `base.server.tsx`, `base.loading.tsx`, and
+  `base.client.tsx`.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the ngrok Clerk dev
+  fix. The Next dev server was restarted after clearing the stale `.next` dev
+  cache; `http://localhost:3000/` returns `200`.
+- Confirmed no `base.tsx`, `base.client.tsx`, `base.server.tsx`,
+  `base.loading.tsx`, `/base`, or `./base` references remain under `src` after
+  the RSC component filename convention cleanup.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the RSC component
+  filename convention cleanup. Restarted the Next dev server and verified `/`,
+  `/products`, `/categories`, `/cart`, `/checkout`, `/sign-in`, and `/sign-up`
+  return `200` at `http://localhost:3000`.
 - Vite dev server is reachable at `http://localhost:5173/cart` and
   `http://localhost:5173/checkout`.

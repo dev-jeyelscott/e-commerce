@@ -21,7 +21,8 @@ Create a page for Cart and Checkout
 - Displays the quantity and actions to increase/deduct quantity
 - When the quantity reaches 0, a modal prompt will show to confirm deletion of product in the cart
 - Displays the actual total amount and the discounted total amount if any
-- Each product has a delete button icon in the top right of the row- Checkout button below to price
+- Each product has a delete button icon in the top right of the row
+- Checkout button below to price
 - Checkbox button to select what products will be checked out
 
 ### Checkout

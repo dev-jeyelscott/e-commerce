@@ -1,15 +1,9 @@
-import { loadEnv } from 'vite'
+import { loadEnvConfig } from '@next/env'
 
-const viteEnv = loadEnv('', process.cwd(), '')
+loadEnvConfig(process.cwd())
 
 export function getServerEnv(name: string) {
-  const value = process.env[name] ?? viteEnv[name]
-
-  if (value && !process.env[name]) {
-    process.env[name] = value
-  }
-
-  return value
+  return process.env[name]
 }
 
 export function requireServerEnv(name: string) {

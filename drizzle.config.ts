@@ -1,13 +1,13 @@
 import { defineConfig } from 'drizzle-kit'
-import { loadEnv } from 'vite'
+import { loadEnvConfig } from '@next/env'
 
-const env = loadEnv('', process.cwd(), '')
+loadEnvConfig(process.cwd())
 
 export default defineConfig({
   schema: './src/db/schema/index.ts',
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.DATABASE_URL ?? env.DATABASE_URL ?? '',
+    url: process.env.DATABASE_URL ?? '',
   },
 })
