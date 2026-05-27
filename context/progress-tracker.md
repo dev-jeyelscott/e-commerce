@@ -73,6 +73,10 @@ change.
 - TypeScript node build typing fix: added the DOM lib to `tsconfig.node.json`
   because the existing Vite/API request adapters use standard Fetch API types
   such as `Request` and `HeadersInit`.
+- Clerk user sync upsert fix: changed the `/api/users/sync` database upsert
+  to avoid passing a raw JavaScript `Date` inside a Drizzle SQL fragment,
+  which caused the Postgres driver to reject the verified-email update during
+  login/signup redirects.
 
 ## In Progress
 
@@ -149,3 +153,10 @@ change.
 - `npm.cmd run lint` and `npm.cmd run build` pass after the storefront page
   layouts implementation. Build emits the existing Vite chunk-size warning for
   a bundle over 500 kB.
+- Reproduced the Clerk user sync upsert locally against the existing
+  PostgreSQL `users` row and confirmed it now returns `ok`.
+- Verified an unverified Clerk email sync no longer clears an existing
+  `email_verified_at` timestamp.
+- `npm.cmd run lint` and `npm.cmd run build` pass after the Clerk user sync
+  upsert fix. Build still emits the existing Vite chunk-size warning for a
+  bundle over 500 kB.
